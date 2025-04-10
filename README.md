@@ -11,7 +11,6 @@ March Madness-inspired Python library
 - Simulate tournament games based on probabilities or random draws
 - Generate and resolve full tournament brackets
 - Analyze win probabilities and simulate many tournaments
-- Import real-world data for simulation
 
 ---
 
