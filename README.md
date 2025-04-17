@@ -37,7 +37,7 @@ This project uses:
 To lint: 
 
 ```bash
-ruff bracketology/
+ruff Bracketology/
 ```
 
 To run tests:
