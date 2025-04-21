@@ -25,9 +25,7 @@ class Team:
         self.name = name
         self.seed = seed
         self.region = region
-        self.win_probs = (
-            win_probs  # {"Rd2": 99.5, "Swt16": 84.6, ..., "Champ": 22.9}
-        )
+        self.win_probs = win_probs
 
     def get_win_prob(self, round_name: Round) -> float:
         """Get the win probability for a specific round."""
