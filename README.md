@@ -17,8 +17,7 @@ March Madness-inspired Python library
 ## Structure
 
 - `src/`
-  - `bracketology_utils.py`: Defines `Team` class with attributes like name, seed, and rating
-  - `team.py`: Defines `Team` class with attributes like name, seed, and rating, builds and stores the tournament bracket, runs matchups and full simulations, and summarizes win rates, upset counts, etc.
+  - `bracketology_utilities.py`: Defines `Team` class with attributes like name, seed, and rating, as well as Bracket class, which simulates rounds and the tournament. 
 - `tests/`
   - Unit tests for all core components using `pytest`
 - `README.md`: Project overview
@@ -38,7 +37,7 @@ This project uses:
 To lint: 
 
 ```bash
-ruff bracketology/
+ruff Bracketology/
 ```
 
 To run tests:
