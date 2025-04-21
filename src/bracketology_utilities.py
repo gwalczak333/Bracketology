@@ -78,17 +78,17 @@ class Bracket:
 
     def simulate_tournament(self) -> Team:
         """Simulate the entire tournament and return the champion."""
-        current_round = self.teams
+        remaining_teams = self.teams
         round_idx = 0
 
-        while len(current_round) > 1 and round_idx < len(self.round_keys):
+        while len(remaining_teams) > 1 and round_idx < len(self.round_keys):
             round_name = self.round_keys[round_idx]
-            self.rounds.append(current_round)
-            current_round = self.simulate_round(current_round, round_name)
+            self.rounds.append(remaining_teams)
+            remaining_teams = self.simulate_round(remaining_teams, round_name)
             round_idx += 1
 
-        self.rounds.append(current_round)  # Final winner
-        return current_round[0]
+        self.rounds.append(remaining_teams)  # Final winner
+        return remaining_teams[0]
 
     def display_bracket(self) -> None:
         """Display the tournament bracket in a readable format."""
