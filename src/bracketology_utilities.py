@@ -1,13 +1,25 @@
 """Bracketology Utilities."""
 
 import random
+from enum import Enum
+
+
+class Round(Enum):
+    """Enum representing the rounds of a tournament."""
+
+    FIRST_ROUND = "First Round"
+    SECOND_ROUND = "Second Round"
+    SWEET_16 = "Sweet 16"
+    ELITE_8 = "Elite 8"
+    FINAL_FOUR = "Final Four"
+    CHAMPIONSHIP = "Championship"
 
 
 class Team:
     """Class representing a team in a tournament."""
 
     def __init__(
-        self, name: str, seed: str, region: str, win_probs: dict[str, float]
+        self, name: str, seed: str, region: str, win_probs: dict[Round, float]
     ):
         """Initialize the team with its name, seed, region, and win_probs."""
         self.name = name
@@ -17,7 +29,7 @@ class Team:
             win_probs  # {"Rd2": 99.5, "Swt16": 84.6, ..., "Champ": 22.9}
         )
 
-    def get_win_prob(self, round_name: str) -> float:
+    def get_win_prob(self, round_name: Round) -> float:
         """Get the win probability for a specific round."""
         return self.win_probs.get(round_name, 0.0)
 
@@ -41,26 +53,25 @@ class Bracket:
 
     def __init__(self, teams: list[Team]):
         """Initialize the bracket with a list of teams."""
-        self.teams = sorted(
-            teams, key=lambda t: int(t.seed)
-        )  # Sort by seed numerically
+        self.teams = sorted(teams, key=lambda t: int(t.seed))  # Sort by seed
         self.rounds: list[list[Team]] = []
 
-        # Define round keys for matching win_probs dict keys
+        # Round keys for matching win_probs dict keys
         self.round_keys = [
-            "Rd2",
-            "Swt16",
-            "Elite8",
-            "Final4",
-            "Final",
-            "Champ",
+            Round.SECOND_ROUND,
+            Round.SWEET_16,
+            Round.ELITE_8,
+            Round.FINAL_FOUR,
+            Round.CHAMPIONSHIP,
         ]
 
-    def simulate_round(self, teams: list[Team], round_name: str) -> list[Team]:
+    def simulate_round(
+        self, remaining_teams: list[Team], round_name: Round
+    ) -> list[Team]:
         """Simulate a round of the tournament with win probabilities."""
         winners = []
-        for i in range(0, len(teams), 2):
-            t1, t2 = teams[i], teams[i + 1]
+        for i in range(0, len(remaining_teams), 2):
+            t1, t2 = remaining_teams[i], remaining_teams[i + 1]
             winner = simulate_game(t1, t2, round_name)
             winners.append(winner)
         return winners
@@ -99,7 +110,7 @@ class Bracket:
                 print(f"  {team.name} (Seed {team.seed})")
 
 
-def simulate_game(team1: Team, team2: Team, round_name: str) -> Team:
+def simulate_game(team1: Team, team2: Team, round_name: Round) -> Team:
     """Simulate a game between two teams using KenPom-style win probs."""
     prob1 = team1.get_win_prob(round_name)
     prob2 = team2.get_win_prob(round_name)
@@ -117,12 +128,12 @@ if __name__ == "__main__":
         "1",
         "East",
         {
-            "Rd2": 98.7,
-            "Swt16": 88.2,
-            "Elite8": 72.5,
-            "Final4": 54.1,
-            "Final": 38.6,
-            "Champ": 21.0,
+            Round.FIRST_ROUND: 98.7,
+            Round.SECOND_ROUND: 88.2,
+            Round.SWEET_16: 72.5,
+            Round.ELITE_8: 54.1,
+            Round.FINAL_FOUR: 38.6,
+            Round.CHAMPIONSHIP: 21.0,
         },
     )
     team2 = Team(
@@ -130,12 +141,12 @@ if __name__ == "__main__":
         "2",
         "East",
         {
-            "Rd2": 95.4,
-            "Swt16": 70.1,
-            "Elite8": 60.2,
-            "Final4": 33.9,
-            "Final": 22.5,
-            "Champ": 10.2,
+            Round.FIRST_ROUND: 95.4,
+            Round.SECOND_ROUND: 70.1,
+            Round.SWEET_16: 60.2,
+            Round.ELITE_8: 33.9,
+            Round.FINAL_FOUR: 22.5,
+            Round.CHAMPIONSHIP: 10.2,
         },
     )
 
