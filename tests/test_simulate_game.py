@@ -1,10 +1,6 @@
 """Test for simulate_game function."""
 
-from Bracketology.src.bracketology_utilities import (
-    Round,
-    Team,
-    simulate_game,
-)
+from bracketology_utilities import Round, Team, simulate_game
 
 
 def test_simulate_game() -> None:
