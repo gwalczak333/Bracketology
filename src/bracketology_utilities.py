@@ -1,5 +1,6 @@
 """Bracketology Utilities."""
 
+import csv
 import random
 from enum import Enum
 
@@ -106,6 +107,34 @@ class Bracket:
             print(f"\n{round_name}:")
             for team in round_teams:
                 print(f"  {team.name} (Seed {team.seed})")
+
+
+def load_teams_from_csv(path: str) -> list[Team]:
+    """Load a list of teams from a CSV file.
+
+    Columns: name,seed,region,FIRST_ROUND,SECOND_ROUND,SWEET_16,ELITE_8,
+    FINAL_FOUR,CHAMPIONSHIP
+    """
+    teams = []
+    with open(path, newline="", encoding="utf-8") as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            name = row["name"]
+            seed = row["seed"]
+            region = row["region"]
+            win_probs = {
+                Round.FIRST_ROUND: float(row.get("FIRST_ROUND", 0.5)),
+                Round.SECOND_ROUND: float(row.get("SECOND_ROUND", 0.5)),
+                Round.SWEET_16: float(row.get("SWEET_16", 0.5)),
+                Round.ELITE_8: float(row.get("ELITE_8", 0.5)),
+                Round.FINAL_FOUR: float(row.get("FINAL_FOUR", 0.5)),
+                Round.CHAMPIONSHIP: float(row.get("CHAMPIONSHIP", 0.5)),
+            }
+            team = Team(
+                name=name, seed=seed, region=region, win_probs=win_probs
+            )
+            teams.append(team)
+    return teams
 
 
 def simulate_game(team1: Team, team2: Team, round_name: Round) -> Team:
