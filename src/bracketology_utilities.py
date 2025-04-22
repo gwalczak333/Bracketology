@@ -1,7 +1,6 @@
 """Bracketology Utilities."""
 
 import csv
-import os
 import random
 from enum import Enum
 
@@ -32,10 +31,6 @@ class Team:
     def get_win_prob(self, round_name: Round) -> float:
         """Get the win probability for a specific round."""
         return self.win_probs.get(round_name, 0.0)
-
-    # def __repr__(self) -> str:
-    #     """Return a string representation of the team."""
-    #     return f"{self.seed} {self.name} {self.region}"
 
     def __eq__(self, other: object) -> bool:
         """Check equality of two teams."""
