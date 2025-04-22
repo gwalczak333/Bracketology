@@ -8,10 +8,10 @@ from bracketology_utilities import Bracket, Round, Team
 def test_simulate_round() -> None:
     """Give 4 teams, ensure 2 winners are returned."""
     teams = [
-        Team("T1", "1", "A", {Round.ELITE_8: 0.9}),
-        Team("T2", "2", "A", {Round.ELITE_8: 0.1}),
-        Team("T3", "3", "A", {Round.ELITE_8: 0.8}),
-        Team("T4", "4", "A", {Round.ELITE_8: 0.2}),
+        Team("Duke", "1", "East", {Round.ELITE_8: 0.9}),
+        Team("Auburn", "3", "South", {Round.ELITE_8: 0.1}),
+        Team("Houston", "1", "Midwest", {Round.ELITE_8: 0.8}),
+        Team("UCLA", "4", "West", {Round.ELITE_8: 0.2}),
     ]
     bracket = Bracket(teams)
     random.seed(0)
