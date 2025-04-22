@@ -17,5 +17,8 @@ def test_simulate_round() -> None:
     random.seed(0)
     winners = bracket.simulate_round(teams, Round.ELITE_8)
 
+    # Check that 2 winners are returned
     assert len(winners) == 2
+
+    # Check that the winners are instances of Team
     assert all(isinstance(w, Team) for w in winners)
