@@ -47,6 +47,7 @@ def test_load_csv() -> None:
         ),
     ]
 
+    # Check that the loaded teams match the expected teams
     assert teams == expected_teams
 
     os.remove(test_csv_path)
