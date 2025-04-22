@@ -8,12 +8,12 @@ from enum import Enum
 class Round(Enum):
     """Enum representing the rounds of a tournament."""
 
-    FIRST_ROUND = "First Round"
-    SECOND_ROUND = "Second Round"
-    SWEET_16 = "Sweet 16"
-    ELITE_8 = "Elite 8"
-    FINAL_FOUR = "Final Four"
-    CHAMPIONSHIP = "Championship"
+    FIRST_ROUND = "FIRST_ROUND"
+    SECOND_ROUND = "SECOND_ROUND"
+    SWEET_16 = "SWEET_16"
+    ELITE_8 = "ELITE_8"
+    FINAL_FOUR = "FINAL_FOUR"
+    CHAMPIONSHIP = "CHAMPIONSHIP"
 
 
 class Team:
@@ -31,10 +31,6 @@ class Team:
     def get_win_prob(self, round_name: Round) -> float:
         """Get the win probability for a specific round."""
         return self.win_probs.get(round_name, 0.0)
-
-    def __repr__(self) -> str:
-        """Return a string representation of the team."""
-        return f"{self.seed} {self.name}"
 
     def __eq__(self, other: object) -> bool:
         """Check equality of two teams."""
@@ -92,12 +88,12 @@ class Bracket:
     def display_bracket(self) -> None:
         """Display the tournament bracket in a readable format."""
         round_names = [
-            "First Round",
-            "Second Round",
-            "Sweet 16",
-            "Elite 8",
-            "Final Four",
-            "Championship",
+            "FIRST_ROUND",
+            "SECOND_ROUND",
+            "SWEET_16",
+            "ELITE_8",
+            "FINAL_FOUR",
+            "CHAMPIONSHIP",
         ]
 
         for i, round_teams in enumerate(self.rounds):
@@ -147,37 +143,3 @@ def simulate_game(team1: Team, team2: Team, round_name: Round) -> Team:
     p = prob1 / total if total > 0 else 0.5
 
     return team1 if random.random() < p else team2
-
-
-if __name__ == "__main__":
-    team1 = Team(
-        "Duke",
-        "1",
-        "East",
-        {
-            Round.FIRST_ROUND: 98.7,
-            Round.SECOND_ROUND: 88.2,
-            Round.SWEET_16: 72.5,
-            Round.ELITE_8: 54.1,
-            Round.FINAL_FOUR: 38.6,
-            Round.CHAMPIONSHIP: 21.0,
-        },
-    )
-    team2 = Team(
-        "UNC",
-        "2",
-        "East",
-        {
-            Round.FIRST_ROUND: 95.4,
-            Round.SECOND_ROUND: 70.1,
-            Round.SWEET_16: 60.2,
-            Round.ELITE_8: 33.9,
-            Round.FINAL_FOUR: 22.5,
-            Round.CHAMPIONSHIP: 10.2,
-        },
-    )
-
-    bracket = Bracket([team1, team2])  # For simplicity, just 2 teams here
-    champ = bracket.simulate_tournament()
-    bracket.display_bracket()
-    print(f"\nChampion: {champ}")
