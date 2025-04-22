@@ -39,7 +39,14 @@ def test_simulate_tournament_single_champion() -> None:
     bracket = Bracket(teams)
     champion = bracket.simulate_tournament()
 
+    # Check that the champion is one of the teams
     assert isinstance(champion, Team)
+
+    # Check that the champion is in the list of teams
     assert champion in teams
+
+    # Check that the champion is the only team in the last round
     assert len(bracket.rounds[-1]) == 1
+
+    # Check that the champion is the first team in the last round
     assert champion == bracket.rounds[-1][0]
