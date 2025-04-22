@@ -40,6 +40,7 @@ pip install -r requirements-test.txt
 - `README.md`: Project overview
 - `.gitignore`: Python file exclusions
 - `pyproject.toml`: Project configuration and ruff setup
+- `requirements-test.txt`: Requirements for testing
 
 ---
 
